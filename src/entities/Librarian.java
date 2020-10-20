@@ -1,9 +1,8 @@
 package entities;
 
-import comparators.IdComparator;
+import utilities.MediaSearch;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -28,7 +27,6 @@ public class Librarian {
 
     public void addMedia(Media media) {
         getLibrary().add(media);
-        getLibrary().sort(new IdComparator());
     }
 
     public void removeMedia(Media media) {
@@ -36,7 +34,8 @@ public class Librarian {
     }
 
     public void removeMediaById(Long id) {
-        int i = Collections.binarySearch(getLibrary(), id, IdComparator);
+        Media m = MediaSearch.byId(getLibrary(), id);
+        removeMedia(m);
     }
 
     @Override

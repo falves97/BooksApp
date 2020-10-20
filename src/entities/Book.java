@@ -11,10 +11,11 @@ public class Book extends Media{
 
     public Book() {
         super();
+        setType(MediaType.BOOK);
     }
 
-    public Book(Long id, MediaType type, String title, String subTitle, Calendar releaseDate, List<Autor> autors, boolean readStatus, boolean acquisitionStatus, String isbn, String publishingCompany, int edition) {
-        super(id, type, title, subTitle, releaseDate, autors, readStatus, acquisitionStatus);
+    public Book(Long id, String title, String subTitle, Calendar releaseDate, List<Autor> autors, boolean readStatus, boolean acquisitionStatus, String isbn, String publishingCompany, int edition) {
+        super(id, MediaType.BOOK, title, subTitle, releaseDate, autors, readStatus, acquisitionStatus);
         this.isbn = isbn;
         this.publishingCompany = publishingCompany;
         this.edition = edition;
