@@ -1,4 +1,4 @@
-package entities;
+package model.entities;
 
 import java.util.Calendar;
 import java.util.List;
@@ -7,6 +7,7 @@ import java.util.Objects;
 public class Book extends Media{
     private String isbn;
     private String publishingCompany;
+    private boolean readStatus;
     private int edition;
 
     public Book() {
@@ -14,10 +15,11 @@ public class Book extends Media{
         setType(MediaType.BOOK);
     }
 
-    public Book(Long id, String title, String subTitle, Calendar releaseDate, List<Autor> autors, boolean readStatus, boolean acquisitionStatus, String isbn, String publishingCompany, int edition) {
-        super(id, MediaType.BOOK, title, subTitle, releaseDate, autors, readStatus, acquisitionStatus);
+    public Book(Long id, MediaType type, String title, String subTitle, Calendar releaseDate, List<Autor> autors, boolean acquisitionStatus, String isbn, String publishingCompany, boolean readStatus, int edition) {
+        super(id, type, title, subTitle, releaseDate, autors, acquisitionStatus);
         this.isbn = isbn;
         this.publishingCompany = publishingCompany;
+        this.readStatus = readStatus;
         this.edition = edition;
     }
 
@@ -37,6 +39,14 @@ public class Book extends Media{
         this.publishingCompany = publishingCompany;
     }
 
+    public boolean isReadStatus() {
+        return readStatus;
+    }
+
+    public void setReadStatus(boolean readStatus) {
+        this.readStatus = readStatus;
+    }
+
     public int getEdition() {
         return edition;
     }
@@ -53,27 +63,30 @@ public class Book extends Media{
     }
 
     @Override
-    public String toString() {
-        return "Book{" + super.toString() +
-                ", isbn='" + isbn + '\'' +
-                ", publishingCompany='" + publishingCompany + '\'' +
-                ", edition=" + edition +
-                '}';
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Book)) return false;
         if (!super.equals(o)) return false;
         Book book = (Book) o;
-        return getEdition() == book.getEdition() &&
+        return isReadStatus() == book.isReadStatus() &&
+                getEdition() == book.getEdition() &&
                 Objects.equals(getIsbn(), book.getIsbn()) &&
                 Objects.equals(getPublishingCompany(), book.getPublishingCompany());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), getIsbn(), getPublishingCompany(), getEdition());
+        return Objects.hash(super.hashCode(), getIsbn(), getPublishingCompany(), isReadStatus(), getEdition());
+    }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                super.toString() +
+                "isbn='" + isbn + '\'' +
+                ", publishingCompany='" + publishingCompany + '\'' +
+                ", readStatus=" + readStatus +
+                ", edition=" + edition +
+                '}';
     }
 }

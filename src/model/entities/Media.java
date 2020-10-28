@@ -1,4 +1,4 @@
-package entities;
+package model.entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -13,21 +13,19 @@ public class Media implements Serializable {
     private String subTitle;
     private Calendar releaseDate;
     private List<Autor> autors;
-    private boolean readStatus;
     private boolean acquisitionStatus;
 
     public Media() {
         autors = new ArrayList<>();
     }
 
-    public Media(Long id, MediaType type, String title, String subTitle, Calendar releaseDate, List<Autor> autors, boolean readStatus, boolean acquisitionStatus) {
+    public Media(Long id, MediaType type, String title, String subTitle, Calendar releaseDate, List<Autor> autors, boolean acquisitionStatus) {
         this.id = id;
         this.type = type;
         this.title = title;
         this.subTitle = subTitle;
         this.releaseDate = releaseDate;
         this.autors = autors;
-        this.readStatus = readStatus;
         this.acquisitionStatus = acquisitionStatus;
     }
 
@@ -79,14 +77,6 @@ public class Media implements Serializable {
         this.autors = autors;
     }
 
-    public boolean isReadStatus() {
-        return readStatus;
-    }
-
-    public void setReadStatus(boolean readStatus) {
-        this.readStatus = readStatus;
-    }
-
     public boolean isAcquisitionStatus() {
         return acquisitionStatus;
     }
@@ -111,26 +101,11 @@ public class Media implements Serializable {
     }
 
     @Override
-    public String toString() {
-        return "Media{" +
-                "id=" + id +
-                ", type=" + type +
-                ", title='" + title + '\'' +
-                ", subTitle='" + subTitle + '\'' +
-                ", releaseDate=" + releaseDate +
-                ", autors=" + autors +
-                ", readStatus=" + readStatus +
-                ", acquisitionStatus=" + acquisitionStatus +
-                '}';
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Media)) return false;
         Media media = (Media) o;
-        return isReadStatus() == media.isReadStatus() &&
-                isAcquisitionStatus() == media.isAcquisitionStatus() &&
+        return isAcquisitionStatus() == media.isAcquisitionStatus() &&
                 Objects.equals(getId(), media.getId()) &&
                 getType() == media.getType() &&
                 Objects.equals(getTitle(), media.getTitle()) &&
@@ -141,6 +116,19 @@ public class Media implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getType(), getTitle(), getSubTitle(), getReleaseDate(), getAutors(), isReadStatus(), isAcquisitionStatus());
+        return Objects.hash(getId(), getType(), getTitle(), getSubTitle(), getReleaseDate(), getAutors(), isAcquisitionStatus());
+    }
+
+    @Override
+    public String toString() {
+        return "Media{" +
+                "id=" + id +
+                ", type=" + type +
+                ", title='" + title + '\'' +
+                ", subTitle='" + subTitle + '\'' +
+                ", releaseDate=" + releaseDate +
+                ", autors=" + autors +
+                ", acquisitionStatus=" + acquisitionStatus +
+                '}';
     }
 }

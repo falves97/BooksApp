@@ -1,32 +1,25 @@
 package application;
 
-import entities.Autor;
-import entities.Book;
-import entities.Librarian;
-import entities.Media;
+import dao.DAOFactory;
+import dao.EntitieDAO;
+import model.entities.Book;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 import java.util.Scanner;
 
 public class Main {
     public static Scanner input = new Scanner(System.in);
 
     public static void main(String[] args) {
-        Librarian librarian = new Librarian();
-        Media media = new Book();
-        List<Autor> autors = new ArrayList<>();
+        Book book = new Book();
+        book.setTitle("Book");
+        book.setSubTitle("Book SubTitle");
+        book.setReleaseDate(Calendar.getInstance());
+        book.setAcquisitionStatus(true);
+        book.setReadStatus(true);
 
-        autors.add(new Autor("Nome", "Sobrenome"));
-
-        media.setId(1L);
-        media.setTitle("Titulo");
-        media.setSubTitle("Subtitulo");
-        media.setReleaseDate(Calendar.getInstance());
-        media.setAutors(autors);
-
-        System.out.println(media.getResume());
+        EntitieDAO bookDAOJDBC = DAOFactory.createBookDAO();
+        bookDAOJDBC.insert(book);
     }
 
     public static void addMadia() {
