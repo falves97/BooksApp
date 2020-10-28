@@ -12,14 +12,15 @@ public class Main {
 
     public static void main(String[] args) {
         Book book = new Book();
-        book.setTitle("Book");
-        book.setSubTitle("Book SubTitle");
+        book.setTitle("Book Alterrado");
+        book.setSubTitle("Book SubTitle Alterado");
         book.setReleaseDate(Calendar.getInstance());
-        book.setAcquisitionStatus(true);
+        book.setAcquisitionStatus(false);
         book.setReadStatus(true);
+        book.setId(2L);
 
-        EntitieDAO bookDAOJDBC = DAOFactory.createBookDAO();
-        bookDAOJDBC.insert(book);
+        EntitieDAO<Book> bookDAOJDBC = DAOFactory.createBookDAO();
+        bookDAOJDBC.update(book);
     }
 
     public static void addMadia() {

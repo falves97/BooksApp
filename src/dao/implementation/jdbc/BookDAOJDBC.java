@@ -50,13 +50,38 @@ public class BookDAOJDBC implements EntitieDAO<Book> {
             throw new DBException(throwables.getMessage());
         } finally {
             ConnectionFactory.closeStatement(ps);
-            ConnectionFactory.closeConnection(connection);
         }
     }
 
     @Override
     public void update(Book book) {
+        PreparedStatement ps = null;
 
+        try {
+            ps = connection.prepareStatement(
+            "UPDATE `books`"
+                + "SET "
+                + "`title` = ?, `subTitle` = ?, `releaseDate` = ?, `readStatus` = ?, `aquisitionStatus` = ?, `isbn` = ?, `publishingCompany` = ?, `edition` = ? "
+            + "WHERE `id` = ?"
+            );
+
+            ps.setString(1, book.getTitle());
+            ps.setString(2, book.getSubTitle());
+            ps.setDate(3, new Date(book.getReleaseDate().getTimeInMillis()));
+            ps.setBoolean(4, book.isReadStatus());
+            ps.setBoolean(5, book.isAcquisitionStatus());
+            ps.setString(6, book.getIsbn());
+            ps.setString(7, book.getPublishingCompany());
+            ps.setInt(8, book.getEdition());
+            ps.setLong(9, book.getId());
+
+            ps.executeLargeUpdate();
+
+        } catch (SQLException throwables) {
+            throw new DBException(throwables.getMessage());
+        } finally {
+            ConnectionFactory.closeStatement(ps);
+        }
     }
 
     @Override
