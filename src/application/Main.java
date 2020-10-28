@@ -2,6 +2,7 @@ package application;
 
 import dao.DAOFactory;
 import dao.EntitieDAO;
+import db.ConnectionFactory;
 import model.entities.Book;
 
 import java.util.Calendar;
@@ -20,7 +21,8 @@ public class Main {
         book.setId(2L);
 
         EntitieDAO<Book> bookDAOJDBC = DAOFactory.createBookDAO();
-        bookDAOJDBC.update(book);
+        bookDAOJDBC.deletById(2L);
+        ConnectionFactory.closeConnection(bookDAOJDBC.getConnection());
     }
 
     public static void addMadia() {

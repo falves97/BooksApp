@@ -85,17 +85,32 @@ public class BookDAOJDBC implements EntitieDAO<Book> {
     }
 
     @Override
-    public void deletById(Integer id) {
+    public void deletById(Long id) {
+        PreparedStatement ps = null;
 
+        try {
+            ps = connection.prepareStatement("DELETE FROM `books` WHERE id = ?");
+            ps.setLong(1, id);
+            ps.executeUpdate();
+        } catch (SQLException throwables) {
+            throw new DBException(throwables.getMessage());
+        } finally {
+            ConnectionFactory.closeStatement(ps);
+        }
     }
 
     @Override
-    public Book findById(Integer id) {
+    public Book findById(Long id) {
         return null;
     }
 
     @Override
     public List<Book> findAll() {
         return null;
+    }
+
+    @Override
+    public Connection getConnection() {
+        return connection;
     }
 }
